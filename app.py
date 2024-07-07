@@ -1,25 +1,27 @@
 # app.py
+
 import subprocess
 import sys
 import importlib
 
-def install_and_import(package):
+def install_and_import(package, install_name=None):
+    install_name = install_name or package
     try:
         importlib.import_module(package)
     except ImportError:
-        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+        subprocess.check_call([sys.executable, "-m", "pip", "install", install_name])
     finally:
         globals()[package] = importlib.import_module(package)
 
-# List of required packages
-required_packages = [
-    "plotly", 
-    "pandas", 
-    "sklearn"
-]
+# List of required packages with their pip install names
+required_packages = {
+    "plotly": "plotly",
+    "pandas": "pandas",
+    "sklearn": "scikit-learn"  # Note: We are installing 'scikit-learn' but importing 'sklearn'
+}
 
-for package in required_packages:
-    install_and_import(package)
+for package, install_name in required_packages.items():
+    install_and_import(package, install_name)
 
 # Now import the required modules
 import plotly.express as px
