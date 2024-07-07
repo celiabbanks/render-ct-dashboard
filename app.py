@@ -1,8 +1,36 @@
 # app.py
+import subprocess
+import sys
+import importlib
 
-# Import necessary components 
+def install_and_import(package):
+    try:
+        importlib.import_module(package)
+    except ImportError:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+    finally:
+        globals()[package] = importlib.import_module(package)
+
+# List of required packages
+required_packages = [
+    "plotly", 
+    "pandas", 
+    "sklearn"
+]
+
+for package in required_packages:
+    install_and_import(package)
+
+# Now import the required modules
+import plotly.express as px
+import plotly.graph_objects as go
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
+
+# Import necessary components from your modules
 from dash import Dash, html, dcc
-import pip_modules # Install modules
 import ct_data_extraction  # Import the data extraction module
 import predictive_visualizations  # Import the predictive visualizations module
 import simple_histogram_1  # Import the histogram1 module
@@ -39,4 +67,3 @@ app.layout = html.Div([
 
 if __name__ == '__main__':
     app.run_server(debug=True)
-
