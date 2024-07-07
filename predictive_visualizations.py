@@ -1,23 +1,22 @@
 # Working code with all predictive visualizations
 
+# predictive_visualizations.py
+
 import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
-
-# Make sure that the clinical trial extraction code is run
-# and 'df' is the DataFrame containing clinical trial data
 import ct_data_extraction
 
-# Call the extract_data function from data_extraction module
+# Extract data
 df = ct_data_extraction.extract_data()
 
-# Define the target column by creating a binary indicator
-df['Completed'] = df['Overall Status'].apply(lambda x: 1 if x == 'COMPLETED' else 0)
+# Optimize data types
+df['Completed'] = df['Overall Status'].apply(lambda x: 1 if x == 'COMPLETED' else 0).astype('int8')
 
-# Drop columns that are not useful for modeling
+# Drop columns not useful for modeling
 df_cleaned = df.drop(columns=['NCT ID', 'Acronym', 'Start Date', 'Primary Completion Date', 'Study First Post Date', 'Last Update Post Date', 'Overall Status'])
 
 # Encode categorical variables
@@ -33,8 +32,8 @@ y = df_encoded['Completed']  # Target column indicating whether the trial is com
 # Split the data
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Initialize and train the model
-model = RandomForestClassifier(n_estimators=100, random_state=42)
+# Initialize and train the model with fewer estimators
+model = RandomForestClassifier(n_estimators=50, random_state=42)
 model.fit(X_train, y_train)
 
 # Predict and evaluate
@@ -106,7 +105,7 @@ importance_df = pd.DataFrame({
 })
 
 # Sort by importance and select top N features
-N = 20  # Number of top features to plot
+N = 10  # Number of top features to plot
 top_importance_df = importance_df.sort_values(by='Importance', ascending=False).head(N)
 
 # Plotly Bar plot for interactive visualization
@@ -127,7 +126,7 @@ feature_fig.update_layout(
         'xanchor': 'center',
         'yanchor': 'top'},
     annotations=[go.layout.Annotation(
-        text='The bar chart shows the importance of top 20 features in predicting completion of clinical trials.',
+        text='The bar chart shows the importance of top 10 features in predicting completion of clinical trials.',
         align='center',
         showarrow=False,
         xref='paper',
