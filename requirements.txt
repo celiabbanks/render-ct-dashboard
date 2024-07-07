@@ -1,0 +1,4 @@
+beautifulsoup4
+dash==2.17.1
+pandas
+gunicorn

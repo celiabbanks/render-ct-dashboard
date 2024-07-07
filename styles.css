@@ -1,0 +1,11 @@
+/* assets/styles.css */
+.row {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.graph-container {
+    flex: 1;
+    margin: 0 10px;
+}
