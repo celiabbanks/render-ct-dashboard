@@ -2,6 +2,7 @@
 
 # Import necessary components 
 from dash import Dash, html, dcc
+import pip_modules # Install modules
 import ct_data_extraction  # Import the data extraction module
 import predictive_visualizations  # Import the predictive visualizations module
 import simple_histogram_1  # Import the histogram1 module
