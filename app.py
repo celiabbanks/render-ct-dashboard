@@ -1,30 +1,5 @@
 # app.py
 
-import subprocess
-import sys
-import importlib
-# import gc
-
-def install_and_import(package, install_name=None):
-    install_name = install_name or package
-    try:
-        importlib.import_module(package)
-    except ImportError:
-        subprocess.check_call([sys.executable, "-m", "pip", "install", install_name])
-    finally:
-        globals()[package] = importlib.import_module(package)
-
-# List of required packages with their pip install names
-required_packages = {
-    "plotly": "plotly",
-    "pandas": "pandas",
-    "sklearn": "scikit-learn"  # Note: We are installing 'scikit-learn' but importing 'sklearn'
-}
-
-for package, install_name in required_packages.items():
-    install_and_import(package, install_name)
-
-# Now import the required modules
 import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
@@ -42,10 +17,6 @@ import simple_histogram_2  # Import the histogram2 module
 
 # Extract data
 df = ct_data_extraction.extract_data()
-
-# Release unused memory
-# del ct_data_extraction
-# gc.collect()
 
 app = Dash(__name__)
 
@@ -73,5 +44,4 @@ app.layout = html.Div([
 ])
 
 if __name__ == "__main__":
-    app.run_server(debug=True, host='0.0.0.0', port=8080)
-
+    app.run_server(debug=True)
