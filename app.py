@@ -3,7 +3,7 @@
 import subprocess
 import sys
 import importlib
-import gc
+# import gc
 
 def install_and_import(package, install_name=None):
     install_name = install_name or package
@@ -44,8 +44,8 @@ import simple_histogram_2  # Import the histogram2 module
 df = ct_data_extraction.extract_data()
 
 # Release unused memory
-del ct_data_extraction
-gc.collect()
+# del ct_data_extraction
+# gc.collect()
 
 app = Dash(__name__)
 
