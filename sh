@@ -1,0 +1,1 @@
+touch .ebextensions/nginx.config
