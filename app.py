@@ -3,6 +3,7 @@
 import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
+import sklearn
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
