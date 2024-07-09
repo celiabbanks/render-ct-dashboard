@@ -51,4 +51,4 @@ app.layout = html.Div([
 
 if __name__ == "__main__":
     logging.debug("Starting the server")
-    app.run_server(debug=True, host=0.0.0.0, port=10000)
+    app.run_server(debug=True, host='0.0.0.0', port=10000)
