@@ -1,4 +1,8 @@
 # app.py
+import logging
+import sys
+
+logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 
 import plotly.express as px
 import plotly.graph_objects as go
@@ -44,5 +48,7 @@ app.layout = html.Div([
     ], className='row')
 ])
 
+
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    logging.debug("Starting the server")
+    app.run_server(debug=True, host='0.0.0.0', port=8080)
