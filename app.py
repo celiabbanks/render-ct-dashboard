@@ -1,8 +1,4 @@
 # app.py
-import logging
-import sys
-
-logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
 
 import plotly.express as px
 import plotly.graph_objects as go
@@ -24,6 +20,7 @@ import simple_histogram_2  # Import the histogram2 module
 df = ct_data_extraction.extract_data()
 
 app = Dash(__name__)
+app = Dash(__name__, external_stylesheets=['/styles.css'])
 
 # Added for Render application
 server = app.server
