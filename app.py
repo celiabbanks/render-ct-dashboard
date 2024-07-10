@@ -9,7 +9,11 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
 
 # Import necessary components from your modules
-from dash import Dash, html, dcc
+# from dash import Dash, html, dcc
+import dash
+import dash_core_components as dcc
+import dash_html_components as html
+
 import ct_data_extraction  # Import the data extraction module
 import predictive_visualizations  # Import the predictive visualizations module
 import simple_histogram_1  # Import the histogram1 module
